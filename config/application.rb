@@ -23,8 +23,9 @@ module AnimeBeerNewsBlog
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
-    config.i18n.avallable_locales = %i[en ru]
-    config.i18n.default_locale = :en
+    config.middleware.use I18n::JS::Middleware
+    config.i18n.available_locales = %i[en ru]
+    config.i18n.default_locale = :ru
 
     # Configuration for the application, engines, and railties goes here.
     #

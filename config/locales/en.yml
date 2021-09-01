@@ -1,3 +1,8 @@
 en:
-  menu: 
+  menu:
     home: "Home"
+  editor:
+    header: Header
+    description: Description
+  button:
+    submit: Submit

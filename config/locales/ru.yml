@@ -1,3 +1,8 @@
 ru:
   menu:
     home: "Главная"
+  editor:
+    header: Заголовок
+    description: Описание
+  button:
+    submit: Отправить
