@@ -1,5 +1,7 @@
 import React, { useReducer, useState } from 'react';
 import ReactQuill from 'react-quill';
+import Chip from './Chip'
+import Select from './Select'
 import I18n from "i18n-js"
 
 const modules = {
@@ -23,10 +25,16 @@ const modules = {
 };
 
 function sendBlogpost(title, description, text) {
+  let tags_item = document.getElementsByClassName('chips')
+  let tags = tags_item[0].M_Chips.chipsData.map((item) => item.tag )
+  let select_item = document.getElementsByClassName('select')
+  let select = select_item[0].value
   const body = JSON.stringify({
     title,
     description,
     text,
+    tags,
+    select,
   });
   console.log(body);
 }
@@ -38,6 +46,8 @@ function BlogpostEditor() {
     {
       title: '',
       description: '',
+      tags: [],
+      region: '',
     },
   );
 
@@ -57,8 +67,8 @@ function BlogpostEditor() {
           <div className="input-field col s12">
             <input id="header" type="text" className="validate" name="title" value={blogpost.title} onChange={handleChange} />
             <label htmlFor="header">
-              debugger;
               {I18n.t("editor.header")}
+              {I18n.default_locale}
             </label>
         </div>
       </div>
@@ -71,6 +81,16 @@ function BlogpostEditor() {
           </div>
       </div>
       <div className="row">
+          <div className="input-field col s12">
+            <Chip />
+          </div>
+      </div>
+      <div className="row">
+          <div className="input-field col s12">
+            <Select name="Region" />
+          </div>
+      </div>
+     <div className="row">
         <div className="col s12">
           <div className="">
             <ReactQuill modules={modules} theme="snow" value={text} onChange={handleText} />
@@ -79,7 +99,7 @@ function BlogpostEditor() {
       </div>
       <div className="row">
         <div className="col s12">
-          <button type="submit" onClick={() => sendBlogpost(blogpost.title, blogpost.description, text)} className="btn btn-waves-effect waves-teal btn-flat">
+          <button type="button" onClick={() => sendBlogpost(blogpost.title, blogpost.description, text)} className="btn btn-waves-effect waves-teal btn-flat">
             submit
           </button>
         </div>
