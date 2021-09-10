@@ -3,7 +3,7 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import 'materialize-css/dist/js/materialize';
 import I18n from "i18n-js"
-I18n.translations = "<%= I18n::JS.filtered_translations.to_json %>";
+//= require i18n
 
 Rails.start();
 Turbolinks.start();

@@ -27,14 +27,16 @@ const modules = {
 function sendBlogpost(title, description, text) {
   let tags_item = document.getElementsByClassName('chips')
   let tags = tags_item[0].M_Chips.chipsData.map((item) => item.tag )
-  let select_item = document.getElementsByClassName('select')
-  let select = select_item[0].value
+
+  let country_item = document.getElementsByClassName('select')
+  let country = country_item[0].value
+
   const body = JSON.stringify({
     title,
     description,
     text,
     tags,
-    select,
+    country,
   });
   console.log(body);
 }
@@ -46,8 +48,6 @@ function BlogpostEditor() {
     {
       title: '',
       description: '',
-      tags: [],
-      region: '',
     },
   );
 
@@ -87,7 +87,7 @@ function BlogpostEditor() {
       </div>
       <div className="row">
           <div className="input-field col s12">
-            <Select name="Region" />
+            <Select />
           </div>
       </div>
      <div className="row">

@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react'
 import M from 'materialize-css'
+import countries from './countries'
 
-function Select(props) {
+function Select() {
   useEffect(() => {
     M.FormSelect.init(Select)
   })
@@ -15,13 +16,11 @@ function Select(props) {
         className="select"
       >
         <option value="0" disabled defaultValue>
-          Choose your option
+          Choose your country
         </option>
-        <option value="opt 1">Option 1</option>
-        <option value="opt 2">Option 2</option>
-        <option value="opt 3">Option 3</option>
+        {countries.map((country, index) => <option key={index} value={country.name.toString()}>{country.name}</option> )}
       </select>
-      <label>{props.name}</label>
+      <label>Country</label>
     </>
   )
 }
