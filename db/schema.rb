@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_03_092911) do
+ActiveRecord::Schema.define(version: 2021_09_13_173539) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,14 +47,14 @@ ActiveRecord::Schema.define(version: 2021_09_03_092911) do
     t.string "title", null: false
     t.string "description"
     t.string "text", null: false
-    t.string "status", null: false
+    t.integer "status", default: 0, null: false
     t.boolean "meangful", default: false
-    t.decimal "avg_rating", null: false
+    t.decimal "avg_rating"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
-    t.bigint "region_id", null: false
-    t.bigint "category_id", null: false
+    t.bigint "region_id"
+    t.bigint "category_id"
     t.index ["category_id"], name: "index_blogposts_on_category_id"
     t.index ["region_id"], name: "index_blogposts_on_region_id"
     t.index ["title"], name: "index_blogposts_on_title"
