@@ -28,17 +28,27 @@ function sendBlogpost(title, description, text) {
   let tags_item = document.getElementsByClassName('chips')
   let tags = tags_item[0].M_Chips.chipsData.map((item) => item.tag )
 
-  let country_item = document.getElementsByClassName('select')
-  let country = country_item[0].value
+  let region_item = document.getElementsByClassName('select')
+  let region = region_item[0].value
 
+  const url = "/blogposts";
   const body = JSON.stringify({
     title,
     description,
     text,
     tags,
-    country,
+    region,
   });
-  console.log(body);
+  let token = document.querySelector('meta[name="csrf-token"]').content;
+
+  fetch(url, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+      'X-CSRF-Token': token
+    },
+    body: body,
+  })
 }
 
 function BlogpostEditor() {
