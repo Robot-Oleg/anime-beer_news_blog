@@ -24,14 +24,13 @@ const modules = {
   },
 };
 
-function sendBlogpost(title, description, text) {
+function sendBlogpost(url, title, description, text) {
   let tags_item = document.getElementsByClassName('chips')
   let tags = tags_item[0].M_Chips.chipsData.map((item) => item.tag )
 
   let region_item = document.getElementsByClassName('select')
   let region = region_item[0].value
 
-  const url = "/blogposts";
   const body = JSON.stringify({
     title,
     description,
@@ -51,13 +50,15 @@ function sendBlogpost(title, description, text) {
   })
 }
 
-function BlogpostEditor() {
-  const [text, setText] = useState('');
+function BlogpostEditor(props) {
+  const [text, setText] = useState(props.text)
+
   const [blogpost, setBlogpost] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
-      title: '',
-      description: '',
+      title: props.title,
+      description: props.description,
+      category: props.category,
     },
   );
 
@@ -70,50 +71,59 @@ function BlogpostEditor() {
     setText(editor.getHTML());
   };
 
+  const tags =  <div className="row">
+                  <div className="input-field col s12">
+                    <Chip tags={props.tags}/>
+                  </div>
+                </div>
+
+  const category =  <div className="row">
+                      <div className="input-field col s12">
+                        <input id="category" type="text" className="validate" name="category" value={blogpost.category} onChange={handleChange} />
+                        <label htmlFor="category" className="active">Category</label>
+                      </div>
+                    </div>
+
   return (
     <div className="row">
       <form className="col s12">
-      <div className="row">
-          <div className="input-field col s12">
-            <input id="header" type="text" className="validate" name="title" value={blogpost.title} onChange={handleChange} />
-            <label htmlFor="header">
-              {I18n.t("editor.header")}
-              {I18n.default_locale}
-            </label>
+        <div className="row">
+            <div className="input-field col s12">
+              <input id="header" type="text" className="validate" name="title" value={blogpost.title} onChange={handleChange} />
+              <label htmlFor="header" className="active">
+                {I18n.t("editor.header")}
+              </label>
+            </div>
         </div>
-      </div>
-      <div className="row">
+        <div className="row">
           <div className="input-field col s12">
               <textarea id="description" className="materialize-textarea" name="description" value={blogpost.description} onChange={handleChange} />
-              <label htmlFor="description">
+              <label htmlFor="description" className="active">
                 Description
               </label>
           </div>
-      </div>
-      <div className="row">
-          <div className="input-field col s12">
-            <Chip />
-          </div>
-      </div>
-      <div className="row">
+        </div>
+        <div className="row">
           <div className="input-field col s12">
             <Select />
           </div>
-      </div>
-     <div className="row">
-        <div className="col s12">
-          <div className="">
-            <ReactQuill modules={modules} theme="snow" value={text} onChange={handleText} />
+        </div>
+        <div className="row">
+          <div className="col s12">
+            <div className="">
+              <ReactQuill modules={modules} theme="snow" value={text} onChange={handleText} />
+            </div>
+        </div>
+        </div>
+        {props.enableCategory ? category : null}
+        {props.enableTags ? tags : null}
+        <div className="row">
+          <div className="col s12">
+            <button type="button" onClick={() => sendBlogpost(props.url, blogpost.title, blogpost.description, text)} className="btn btn-waves-effect waves-teal btn-flat">
+              submit
+            </button>
           </div>
         </div>
-      </div>
-      <div className="row">
-        <div className="col s12">
-          <button type="button" onClick={() => sendBlogpost(blogpost.title, blogpost.description, text)} className="btn btn-waves-effect waves-teal btn-flat">
-            submit
-          </button>
-        </div>
-      </div>
       </form>
     </div>
   );

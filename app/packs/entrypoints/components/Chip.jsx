@@ -1,11 +1,16 @@
 import React, { useEffect } from "react";
 import M from "materialize-css";
 
-function Chip() {
+function Chip(props) {
+  const tags = []
+  if (!!props.tags) {
+    tags = props.tags.map((tag) => { return { tag: tag } })
+  }
   useEffect(() => {
       const options = {
         placeholder: "Enter a tag",
         secondaryPlaceholder: "+Tag",
+        data: tags,
       };
       M.Chips.init(Chip, options);
   })

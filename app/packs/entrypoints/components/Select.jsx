@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import M from 'materialize-css'
-import countries from './countries'
+import regions from './regions'
 
 function Select() {
   useEffect(() => {
@@ -16,9 +16,9 @@ function Select() {
         className="select"
       >
         <option value="0" disabled defaultValue>
-          Choose your country
+          Choose your region
         </option>
-        {countries.map((country, index) => <option key={index} value={country.name.toString()}>{country.name}</option> )}
+        {regions.map((region, index) => <option key={index} value={region.name.toString()}>{region.name}</option> )}
       </select>
       <label>Country</label>
     </>
