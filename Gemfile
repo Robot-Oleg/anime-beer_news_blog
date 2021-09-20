@@ -19,6 +19,7 @@ gem 'devise'
 gem 'pundit'
 gem 'rails-i18n', '~> 6'
 gem 'i18n-js'
+gem 'acts-as-taggable-on'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
