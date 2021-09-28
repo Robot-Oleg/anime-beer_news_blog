@@ -24,13 +24,7 @@ const modules = {
   },
 };
 
-function sendBlogpost(url, title, description, text) {
-  let tags_item = document.getElementsByClassName('chips')
-  let tags = tags_item[0].M_Chips.chipsData.map((item) => item.tag )
-
-  let region_item = document.getElementsByClassName('select')
-  let region = region_item[0].value
-
+function updateBlogpost() {
   const body = JSON.stringify({
     title,
     description,
@@ -38,16 +32,41 @@ function sendBlogpost(url, title, description, text) {
     tags,
     region,
   });
-  let token = document.querySelector('meta[name="csrf-token"]').content;
+  sendRequest(url, 'patch', body)
+}
 
+function createBlogpost(url, title, description, text) {
+  const body = JSON.stringify({
+    title,
+    description,
+    text,
+  });
+ sendRequest(url, 'post', body)
+}
+
+function sendRequest(url, method, body) {
   fetch(url, {
-    method: "post",
+    method: method,
     headers: {
       "Content-Type": "application/json",
-      'X-CSRF-Token': token
+      'X-CSRF-Token': getToken()
     },
     body: body,
   })
+}
+
+function getRegion() {
+  let region_item = document.getElementsByClassName('select')
+  return region_item[0].value
+}
+
+function getTags() {
+  let tags_item = document.getElementsByClassName('chips')
+  return tags_item[0].M_Chips.chipsData.map((item) => item.tag )
+}
+
+function getToken() {
+  return document.querySelector('meta[name="csrf-token"]').content
 }
 
 function BlogpostEditor(props) {
@@ -59,6 +78,7 @@ function BlogpostEditor(props) {
       title: props.title,
       description: props.description,
       category: props.category,
+      main_image: props.main_image,
     },
   );
 
@@ -118,8 +138,13 @@ function BlogpostEditor(props) {
         {props.enableCategory ? category : null}
         {props.enableTags ? tags : null}
         <div className="row">
+          <div className="input-field col s12">
+              <input type="file" name="image" value={blogpost.main_image} onChange={handleChange}/>
+          </div>
+        </div>
+        <div className="row">
           <div className="col s12">
-            <button type="button" onClick={() => sendBlogpost(props.url, blogpost.title, blogpost.description, text)} className="btn btn-waves-effect waves-teal btn-flat">
+            <button type="button" onClick={() => createBlogpost(props.url, blogpost.title, blogpost.description, text)} className="btn btn-waves-effect waves-teal btn-flat">
               submit
             </button>
           </div>
