@@ -20,9 +20,15 @@ gem 'pundit'
 gem 'rails-i18n', '~> 6'
 gem 'i18n-js'
 gem 'acts-as-taggable-on'
+gem 'aws-sdk-s3'
+gem 'pagy'
+gem 'searchkick'
+gem 'administrate'
+gem 'geocoder'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
-# Use Active Model has_secure_password
+# Use Active Model has_secure_pasuwor
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variant
@@ -36,6 +42,10 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'dotenv-rails'
   gem 'rspec-rails'
+  gem 'rubocop-rails'
+  gem 'faker'
+  gem 'pry-byebug'
+  gem 'bullet'
 end
 
 group :development do
