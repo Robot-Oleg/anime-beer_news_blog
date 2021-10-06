@@ -3,11 +3,24 @@ class BlogpostsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :edit, :update]
 
   def index
-    @blogpost = Blogpost.all
+    # query = params[:search].presence || '*'
+    if !!params[:category]
+      blogpost = Blogpost.joins(:category).where(category: { name: params[:category] })
+    elsif !!params[:meangful]
+      blogpost = Blogpost.where(meangful: true)
+    else
+      blogpost = Blogpost.all
+    end
+    @country = request.location.country
+    @pagy, @blogpost = pagy(blogpost, items: 9)
+  end
+
+  def meaningful
+    @blogpost = Blogpost.where(meangful: true)
   end
 
   def create
-    @blogpost = current_user.blogposts.new(permited_attributes(@blogpost))
+    @blogpost = current_user.blogposts.new(permitted_attributes(@blogpost))
     if @blogpost.save
       render 'index'
     else
@@ -20,6 +33,8 @@ class BlogpostsController < ApplicationController
   end
 
   def show
+    commontator_thread_show(@blogpost)
+    current_user.views.create(blogpost_id: @blogpost.id) unless current_user.nil?
   end
 
   def edit
@@ -28,7 +43,7 @@ class BlogpostsController < ApplicationController
 
   def update
     authorize @blogpost
-    @blogpost.update(permited_attributes(@blogpost))
+    @blogpost.update(permitted_attributes(@blogpost))
   end
 
   private
