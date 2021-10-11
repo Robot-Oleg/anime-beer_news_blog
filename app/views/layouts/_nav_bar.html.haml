@@ -1,0 +1,19 @@
+%nav
+  .nav-wrapper.row
+    %form.col.l6
+      .input-field
+        %input#search{:name => "search", :required => "", :type => "search"}/
+        %label.label-icon{:for => "search"}
+          %i.material-icons search
+        %i.material-icons close
+    .col.l6
+      %a.brand-logo{:href => "#"}
+      %ul#nav-mobile.right.hide-on-med-and-down
+        - if user_signed_in?
+          %li= link_to current_user.name, ''
+          %li= link_to 'Logout', destroy_user_session_path, method: :delete
+          %li
+            = link_to 'Create Blogpost', ''
+        - else
+          %li= link_to 'Sign in', new_user_registration_path
+          %li= link_to 'Log in', new_user_session_path

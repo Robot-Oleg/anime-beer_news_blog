@@ -1,0 +1,15 @@
+.row
+  - @blogpost.each.with_index do |post, index|
+    %a{:href => "#{blogpost_path(post)}"}
+      .col.s12.m6.l4
+        .card.medium
+          .card-image
+            = image_tag post.main_image if post.main_image.attached?
+          .card-content
+            %span.card-title= post.title
+            .chip
+              = image_tag(post.user.avatar, class: 'circle') if post.user.avatar.attached?
+              %span= post.user.nickname
+.row
+  .col.s12.center
+    = pagy_materialize_nav(@pagy).html_safe

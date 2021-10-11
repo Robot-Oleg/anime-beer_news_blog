@@ -1,0 +1,16 @@
+- if current_user.editor? || current_user.admin?
+  = react_component("BlogpostEditor", { url: "/blogposts/#{@blogpost.id}", |
+    enableCategory: true,                                                  |
+    enableTags: true,                                                      |
+    title: @blogpost.title,                                                |
+    description: @blogpost.description,                                    |
+    text: @blogpost.text,                                                  |
+    updateButton: true,                                                    |
+    })                                                                     |
+- else
+  = react_component("BlogpostEditor", { url: "/blogposts/#{@blogpost.id}", |
+    title: @blogpost.title,                                                |
+    description: @blogpost.description,                                    |
+    text: @blogpost.text,                                                  |
+    updateButton: true,                                                    |
+    })                                                                     |
