@@ -25,6 +25,10 @@ gem 'pagy'
 gem 'searchkick'
 gem 'administrate'
 gem 'geocoder'
+gem 'jquery-rails'
+gem 'sassc-rails'
+gem 'commontator', git: 'https://github.com/gambala/commontator/'
+gem 'haml-rails'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
@@ -43,6 +47,7 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'rspec-rails'
   gem 'rubocop-rails'
+  gem 'haml-lint'
   gem 'faker'
   gem 'pry-byebug'
   gem 'bullet'
