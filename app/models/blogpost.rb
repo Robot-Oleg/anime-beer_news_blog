@@ -10,9 +10,8 @@ class Blogpost < ActiveRecord::Base
       desription: desription
     }
   end
-  acts_as_commontable
+  acts_as_commentable
   belongs_to :user
-  has_many :comments, as: :commentable, dependent: :destroy
   has_many :ratings
   has_one :category
   has_one :region

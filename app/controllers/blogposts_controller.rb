@@ -20,6 +20,7 @@ class BlogpostsController < ApplicationController
   end
 
   def create
+    authorize @blogpost
     @blogpost = current_user.blogposts.new(permitted_attributes(@blogpost))
     if @blogpost.save
       render 'index'
@@ -30,10 +31,10 @@ class BlogpostsController < ApplicationController
 
   def new
     @blogpost = Blogpost.new
+    authorize @blogpost
   end
 
   def show
-    commontator_thread_show(@blogpost)
     current_user.views.create(blogpost_id: @blogpost.id) unless current_user.nil?
   end
 

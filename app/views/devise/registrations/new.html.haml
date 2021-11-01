@@ -1,21 +1,28 @@
-%h2 Sign up
-= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-  = render "devise/shared/error_messages", resource: resource
-  %div
-    = f.label :name
-    %br/
-    = f.text_field :name, autofocus: true
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-  .field
-    = f.label :password
-    - if @minimum_password_length
-      %em
-        (#{@minimum_password_length} characters minimum)
-    %br/
-    = f.password_field :password, autocomplete: "new-password"
-  .actions
-    = f.submit "Sign up"
-= render "devise/shared/links"
+.row
+  %h3.center.col.s12 Create account
+  .row
+    .col.l6.offset-l3.m8.offset-m2
+      .card-panel.hoverable
+        .row
+          - resource_class.omniauth_providers.each do |provider|
+            = link_to 'Sign in with Google', omniauth_authorize_path(resource_name, provider),
+                class: 'col s12 btn waves-effect waves-light',
+                method: :post
+        .row
+          = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+            = render "devise/shared/error_messages", resource: resource
+            %div
+              = f.label :name
+              = f.text_field :name, autofocus: true
+            .field
+              = f.label :nickname
+              = f.text_field :nickname, autofocus: true
+            .field
+              = f.label :email
+              = f.email_field :email, autofocus: true, autocomplete: "email"
+            .field
+              = f.label "Password (#{@minimum_password_length} characters minimum)"
+              = f.password_field :password, autocomplete: "new-password"
+            .actions
+              = f.submit "Sign up", class: 'btn waves-effect waves-light right'
+          = render "devise/shared/links"
