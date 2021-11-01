@@ -9,8 +9,11 @@
     %link{:href => "https://fonts.googleapis.com/icon?family=Material+Icons", :rel => "stylesheet"}/
     = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'manifest'
-    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application'
+    = javascript_include_tag 'https://kit.fontawesome.com/0fcc98511a.js'
   %body
+    - flash.each do |type, msg|
+      = hidden_field_tag type, msg
     = render 'layouts/nav_bar'
     .container
       = yield

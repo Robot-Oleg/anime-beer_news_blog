@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   root 'blogposts#index'
-  devise_for :users
-  mount Commontator::Engine => '/commontator'
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   resources :blogposts do
     collection do
       get '/meaningful', to: 'blogposts#meaningful'
@@ -12,9 +11,12 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users
-    resources :blogposts
-    resources :categories
-
-    root to: 'blogposts#index'
+    # resources :blogposts
+    # resources :categories
+    # namespace :commontator do
+    #   resources :comments
+    # end
+    # root to: 'blogposts#index'
+    root to: 'users#index'
   end
 end
