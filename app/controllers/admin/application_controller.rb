@@ -9,8 +9,23 @@ module Admin
     before_action :authenticate_admin
 
     def authenticate_admin
-      current_user.admin?
+      redirect_to new_user_session_path unless current_user&.admin?
     end
+
+    # def index
+    #   search_term = params[:search].to_s.strip
+    #   resources = Administrate::Search.new(scoped_resource, dashboard_class, search_term).run
+    #   resources = order.apply(resources)
+    #   resources = resources.paginate(:page => params[:page])
+    #   page = Administrate::Page::Collection.new(dashboard, order: order)
+
+    #   render locals: {
+    #     resources: resources.paginate(:page => params[:page]),
+    #     search_term: search_term,
+    #     page: page,
+    #     show_search_bar: show_search_bar?
+    #   }
+    # end
 
     # Override this value to specify the number of elements to display at a time
     # on index pages. Defaults to 20.

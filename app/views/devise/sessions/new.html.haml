@@ -1,17 +1,28 @@
-%h2 Log in
-= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-  .field
-    = f.label :password
-    %br/
-    = f.password_field :password, autocomplete: "current-password"
-  - if devise_mapping.rememberable?
-    .field
-      = f.check_box :remember_me
-      = f.label :remember_me
-  .actions
-    = f.submit "Log in"
-= render "devise/shared/links"
+.row
+  %h3.center.col.s12 Log in
+  .row
+    .col.l6.offset-l3.m8.offset-m2
+      .card-panel.hoverable
+        .row
+          - resource_class.omniauth_providers.each do |provider|
+            = link_to 'Sign in with Google', omniauth_authorize_path(resource_name, provider),
+                class: 'col s12 btn waves-effect waves-light',
+                method: :post
+        .row
+          = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+            .field
+              = f.label :email
+              %br/
+              = f.email_field :email, autofocus: true, autocomplete: "email"
+            .field
+              = f.label :password
+              %br/
+              = f.password_field :password, autocomplete: "current-password"
+            - if devise_mapping.rememberable?
+              %p.col.s12
+                = f.label :remember_me do
+                  = f.check_box :remember_me, class: 'filled-in'
+                  %span Remeber me
+            .actions
+              = f.submit "Log in", class: 'btn waves-effect waves-light right'
+          = render "devise/shared/links"

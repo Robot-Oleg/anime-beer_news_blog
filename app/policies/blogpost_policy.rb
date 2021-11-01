@@ -7,7 +7,18 @@ class BlogpostPolicy < ApplicationPolicy
   end
 
   def show?
-    
+  end
+
+  def destroy?
+    check_for_update
+  end
+
+  def new?
+    check_for_update
+  end
+
+  def create?
+    check_for_update
   end
 
   def update?
@@ -18,11 +29,11 @@ class BlogpostPolicy < ApplicationPolicy
     check_for_update
   end
 
-  def permited_attributes
+  def permitted_attributes
     if user.editor? || user.admin?
-      [:title, :description, :text, :tag_list, :region, :category, :status]
+      [:title, :description, :text, :tag_list, :region, :category, :status, :main_image]
     elsif user.writer?
-      [:title, :description, :text, :region]
+      [:title, :description, :text, :tag_list, :region, :category, :main_image]
     end
   end
 

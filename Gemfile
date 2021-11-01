@@ -25,10 +25,10 @@ gem 'pagy'
 gem 'searchkick'
 gem 'administrate'
 gem 'geocoder'
-gem 'jquery-rails'
-gem 'sassc-rails'
-gem 'commontator', git: 'https://github.com/gambala/commontator/'
-gem 'haml-rails'
+gem 'acts_as_commentable_with_threading'
+gem 'haml'
+gem 'omniauth-google-oauth2'
+gem "omniauth-rails_csrf_protection"
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
