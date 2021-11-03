@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   validates :password, presence: true
 
   enum role: { admin: 0, editor: 1, writer: 2, regular_user: 3 }
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :confirmable, :registerable,
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:google_oauth2]
   has_many :blogposts
